@@ -4,7 +4,7 @@ import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
-class ToastUtil {
+class SnackbarUtil {
     companion object {
 
         fun toast(view: View, msg: String) {

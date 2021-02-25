@@ -23,8 +23,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
-import top.intkilow.architecture.ui.ToastUtil
-import top.intkilow.architecture.utils.DisplayUtil
+import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatQrscanPageBinding
 import top.intkilow.feat.qrscan.Decoder
 import java.util.concurrent.ExecutorService
@@ -69,7 +69,7 @@ class QRScanPage : Fragment() {
         })
         binding.viewfinderView.setColor(borderColor, borderColor, borderColor)
         val layoutParams = binding.backLayout.layoutParams as ConstraintLayout.LayoutParams
-        layoutParams.topMargin = DisplayUtil.getStatusBarHeight(binding.backLayout.context)
+        layoutParams.topMargin = ViewUtils.getStatusBarHeight(binding.backLayout.context)
         binding.backLayout.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -121,7 +121,7 @@ class QRScanPage : Fragment() {
                     qrScanModel.parseQRFromUri(it).observe(viewLifecycleOwner) { data ->
                         if (data.isNullOrBlank()) {
                             qrScanModel.analysisFromPhoto.value = false
-                            ToastUtil.toast(binding.previewView, "解码失败!")
+                            SnackbarUtil.toast(binding.previewView, "解码失败!")
                         } else {
                             finish(data)
                         }

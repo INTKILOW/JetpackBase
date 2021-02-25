@@ -15,7 +15,7 @@ import android.view.animation.Interpolator;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
-import top.intkilow.architecture.utils.DisplayUtil;
+import top.intkilow.architecture.utils.ViewUtils;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
@@ -90,23 +90,23 @@ public class PhotoItem extends AppCompatImageView {
     }
 
     void initData(Context context) {
-        mRadius = DisplayUtil.Companion.dp2px(context, mRadius);
-        paddingTop = DisplayUtil.Companion.dp2px(context, paddingTop);
-        paddingRight = DisplayUtil.Companion.dp2px(context, paddingRight);
-        radius = DisplayUtil.Companion.dp2px(context, radius);
-        radiusW = DisplayUtil.Companion.dp2px(context, radiusW);
-        clickW = DisplayUtil.Companion.dp2px(context, clickW);
-        scaleW = DisplayUtil.Companion.dp2px(context, scaleW);
-        mGIFPaddingLeft = DisplayUtil.Companion.dp2px(context, mGIFPaddingLeft);
-        mGIFPaddingBottom = DisplayUtil.Companion.dp2px(context, mGIFPaddingBottom);
-        mVideoRectW = DisplayUtil.Companion.dp2px(context, mVideoRectW);
-        mVideoRectH = DisplayUtil.Companion.dp2px(context, mVideoRectH);
-        mTraH = DisplayUtil.Companion.dp2px(context, mTraH);
-        mTraPaddingLeft = DisplayUtil.Companion.dp2px(context, mTraPaddingLeft);
-        mTraFixH = DisplayUtil.Companion.dp2px(context, mTraFixH);
-        countPaintSize = DisplayUtil.Companion.dp2px(context, countPaintSize);
-        mTimePaddingLeft = DisplayUtil.Companion.dp2px(context, mTimePaddingLeft);
-        mTextPaintSize = DisplayUtil.Companion.dp2px(context, mTextPaintSize);
+        mRadius = ViewUtils.Companion.dp2px(context, mRadius);
+        paddingTop = ViewUtils.Companion.dp2px(context, paddingTop);
+        paddingRight = ViewUtils.Companion.dp2px(context, paddingRight);
+        radius = ViewUtils.Companion.dp2px(context, radius);
+        radiusW = ViewUtils.Companion.dp2px(context, radiusW);
+        clickW = ViewUtils.Companion.dp2px(context, clickW);
+        scaleW = ViewUtils.Companion.dp2px(context, scaleW);
+        mGIFPaddingLeft = ViewUtils.Companion.dp2px(context, mGIFPaddingLeft);
+        mGIFPaddingBottom = ViewUtils.Companion.dp2px(context, mGIFPaddingBottom);
+        mVideoRectW = ViewUtils.Companion.dp2px(context, mVideoRectW);
+        mVideoRectH = ViewUtils.Companion.dp2px(context, mVideoRectH);
+        mTraH = ViewUtils.Companion.dp2px(context, mTraH);
+        mTraPaddingLeft = ViewUtils.Companion.dp2px(context, mTraPaddingLeft);
+        mTraFixH = ViewUtils.Companion.dp2px(context, mTraFixH);
+        countPaintSize = ViewUtils.Companion.dp2px(context, countPaintSize);
+        mTimePaddingLeft = ViewUtils.Companion.dp2px(context, mTimePaddingLeft);
+        mTextPaintSize = ViewUtils.Companion.dp2px(context, mTextPaintSize);
     }
 
 

@@ -18,8 +18,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import top.intkilow.architecture.ui.ToastUtil
-import top.intkilow.architecture.utils.DisplayUtil
+import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatureChoosePhotoBinding
 import top.intkilow.feat.page.photo.adapter.PhotoAdapter
 import top.intkilow.feat.vo.PhotoVO
@@ -141,7 +141,7 @@ class ChoosePhoto : Fragment() {
             // 设置bar
             val layoutParams = binding
                     .toolbar.layoutParams as ConstraintLayout.LayoutParams
-            layoutParams.topMargin = DisplayUtil.getStatusBarHeight(context)
+            layoutParams.topMargin = ViewUtils.getStatusBarHeight(context)
             binding.toolbar.layoutParams = layoutParams
 
         }
@@ -180,7 +180,7 @@ class ChoosePhoto : Fragment() {
                     } catch (ex: IOException) {
                         // Error occurred while creating the File
                         recyclerView?.let {
-                            ToastUtil.toast(it, "error = ${ex.message}")
+                            SnackbarUtil.toast(it, "error = ${ex.message}")
                         }
                         null
                     }

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import top.intkilow.architecture.ui.ToastUtil
+import top.intkilow.architecture.ui.SnackbarUtil
 import top.intkilow.feat.R
 import top.intkilow.feat.databinding.FeatureCameraItemBinding
 import top.intkilow.feat.databinding.FeaturePhotoItemBinding
@@ -67,7 +67,7 @@ class PhotoAdapter(var data: LinkedList<PhotoVO>, val dataChange: (size: Int) ->
                             } else {
                                 if (selectData.size >= selectSize) {
                                     val format = image.context.resources.getString(R.string.feat_choose_photo_max)
-                                    ToastUtil.toast(image, String.format(format, selectSize))
+                                    SnackbarUtil.toast(image, String.format(format, selectSize))
                                     return
                                 }
                                 selectData.add(vo)

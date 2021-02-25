@@ -1,5 +1,6 @@
 package top.intkilow.jetpackbase.pages.main
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import top.intkilow.architecture.nav.NavControllerHelper
+import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.constant.CHOOSE_PHOTO_PAGE
 import top.intkilow.feat.constant.PAGE
@@ -31,6 +33,12 @@ class MainPage : Fragment() {
                         SCAN_PAGE
                     )
                 }, NavControllerHelper.getNavOptions()
+            )
+        }
+        context?.let {
+            ViewUtils.getGradientDrawable(
+                it, 0xFFFFFF, GradientDrawable.RECTANGLE, 0f,
+                floatArrayOf(2f, 2f, 2f)
             )
         }
         return binding.root

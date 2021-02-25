@@ -16,41 +16,39 @@ class NetWorkManager {
 
 
     companion object {
-        var BASE_URL = ""
+
         @Volatile
         private var instance: NetWorkManager? = null
         fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: NetWorkManager().also { instance = it }
-                }
+            instance ?: synchronized(this) {
+                instance ?: NetWorkManager().also { instance = it }
+            }
     }
 
-    fun init(mParamsMap: Map<String, String>) {
-
+    fun init(mParamsMap: Map<String, String>, baseUrl: String = "") {
 
 
         // 初始化okhttp
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-                .addInterceptor(authorizationInterceptor)
-                .addInterceptor(BaseInterceptor(mParamsMap))
-                .readTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
-                .writeTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
-                .connectTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
+            .addInterceptor(authorizationInterceptor)
+            .addInterceptor(BaseInterceptor(mParamsMap))
+            .readTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
+            .writeTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
+            .connectTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             val logInterceptor = HttpLoggingInterceptor(HttpLogger())
             logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             builder.addInterceptor(logInterceptor)
         }
 
 
-
         val client = builder.build()
         retrofit = Retrofit.Builder()
-                .client(client)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .client(client)
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
         // 初始化Retrofit
     }
