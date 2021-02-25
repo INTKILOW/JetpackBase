@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/mainPage">
+
+    <include app:graph="@navigation/feat_nav" />
+
+    <fragment
+        tools:layout="@layout/app_main"
+        android:id="@+id/mainPage"
+        android:name="top.intkilow.jetpackbase.pages.main.MainPage"
+        android:label="MainPage" />
+
+    <action
+        android:id="@+id/springboard"
+        app:destination="@id/feat_nav" />
+
+</navigation>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feat_nav"
+    app:startDestination="@id/springboardPage">
+
+    <fragment
+        tools:layout="@layout/feature_choose_photo"
+        android:id="@+id/choosePhoto"
+        android:name="top.intkilow.feat.page.photo.choose.ChoosePhoto"
+        android:label="ChoosePhoto" />
+
+    <fragment
+        tools:layout="@layout/feature_preview_page"
+        android:id="@+id/previewPage"
+        android:name="top.intkilow.feat.page.preview.PreviewPage"
+        android:label="PreviewPage" />
+
+    <fragment
+        android:id="@+id/QRScanPage"
+        android:name="top.intkilow.feat.page.qr.QRScanPage"
+        android:label="QRScanPage"
+        tools:layout="@layout/feat_qrscan_page" />
+
+    <fragment
+        android:id="@+id/webPage"
+        android:name="top.intkilow.feat.page.web.WebPage"
+        android:label="WebPage"
+        tools:layout="@layout/feat_page_web" />
+    <fragment
+        android:id="@+id/springboardPage"
+        android:name="top.intkilow.feat.page.SpringboardPage"
+        android:label="SpringboardPage" />
+</navigation>

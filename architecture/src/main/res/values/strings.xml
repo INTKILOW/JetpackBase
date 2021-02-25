@@ -1,0 +1,9 @@
+<resources>
+    <string name="base_cancel">取消</string>
+    <array name="base_save_list">
+        <item>保存到本地</item>
+    </array>
+
+    <string name="architecture_loading">加载中</string>
+    <string name="architecture_loading_fail">加载失败，点击重试</string>
+</resources>

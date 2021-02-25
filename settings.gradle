@@ -1,0 +1,4 @@
+include ':feat'
+include ':architecture'
+include ':app'
+rootProject.name = "JetpackBase"

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+
+        <variable
+            name="homeModel"
+            type="top.intkilow.feat.page.qr.QRScanModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <top.intkilow.feat.widget.ViewfinderView
+            android:id="@+id/viewfinderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cornerColor="#E91E63"
+            app:cornerRectHeight="2dp"
+            app:cornerRectWidth="17dp"
+            app:frameColor="#00000000"
+            app:labelText="请对准需要识别的二维码"
+            app:labelTextColor="#fff"
+            app:labelTextLocation="bottom"
+            app:labelTextSize="14sp"
+            app:laserColor="#E91E63"
+            app:laserStyle="line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resultPointColor="#E91E63" />
+
+        <ImageView
+            android:id="@+id/feature_flash"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginBottom="64dp"
+            android:src="@{homeModel.flashMode?@drawable/flash_on:@drawable/flash_off,default=@drawable/flash_off}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/feature_view5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/feature_view5"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#21FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/feature_flash"
+            app:layout_constraintEnd_toStartOf="@+id/feature_photo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/feature_flash"
+            app:layout_constraintTop_toTopOf="@+id/feature_flash" />
+
+
+        <ImageView
+            android:id="@+id/feature_photo"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/photo"
+            app:layout_constraintBottom_toBottomOf="@+id/feature_flash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/feature_view5"
+            app:layout_constraintTop_toTopOf="@+id/feature_flash" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feat_qr_scan"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/back_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/back_layout" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:visibility="@{homeModel.analysisFromPhoto?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/back_layout"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/qrscan_back" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="@{homeModel.analysisFromPhoto?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="@string/feat_identify"
+            android:textColor="#fff"
+            android:visibility="@{homeModel.analysisFromPhoto?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

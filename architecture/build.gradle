@@ -1,0 +1,122 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+
+    def retrofit_sdk_version = "2.9.0"
+
+    //retrofit + okHttp3
+    api "com.squareup.retrofit2:retrofit:$retrofit_sdk_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_sdk_version"
+    api "com.squareup.okhttp3:logging-interceptor:4.8.1"
+
+    // 本地存储
+    api "androidx.datastore:datastore-preferences:1.0.0-alpha05"
+    api "androidx.datastore:datastore-preferences-core:1.0.0-alpha05"
+
+    // 导航组件 navigation
+    def nav_version = "2.3.2"
+
+    api "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    api "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // ui
+    api 'com.afollestad.material-dialogs:lifecycle:3.2.1'
+    api 'com.afollestad.material-dialogs:core:3.3.0'
+//    api 'com.afollestad.material-dialogs:bottomsheets:3.3.0'
+//    api 'com.afollestad.material-dialogs:files:3.3.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'com.google.android.material:material:1.2.1'
+//    api 'androidx.cardview:cardview:1.0.0'
+//    api 'com.youth.banner:banner:2.1.0'
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    // 下拉刷新
+    api "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
+    // TBSWebView
+//    api rootProject.ext.dependencies["weblib"]
+
+    // 应用启动
+    api "androidx.startup:startup-runtime:1.0.0"
+
+
+    def glide_sdk_version = "4.11.0"
+    // 图片加载
+    api "com.github.bumptech.glide:glide:$glide_sdk_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_sdk_version"
+
+    // 分页 paging
+    def paging_version = "3.0.0-alpha10"
+    api "androidx.paging:paging-runtime-ktx:$paging_version" // For Kotlin use paging-runtime-ktx
+    // alternatively - without Android dependencies for testing
+    api "androidx.paging:paging-common-ktx:$paging_version" // For Kotlin use paging-common-ktx
+    // optional - RxJava support
+    api "androidx.paging:paging-rxjava2-ktx:$paging_version" // For Kotlin use paging-rxjava2-ktx
+
+    // 协程
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
+    // 生命周期
+    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
+
+
+    // 权限
+    def activity_version = "1.2.0-beta01"
+    // Kotlin
+    api "androidx.activity:activity-ktx:$activity_version"
+
+
+
+    def work_version = "2.4.0"
+
+    // Kotlin + coroutines
+    api "androidx.work:work-runtime-ktx:$work_version"
+    // optional - RxJava2 support
+    api "androidx.work:work-rxjava2:$work_version"
+    // optional - GCMNetworkManager support
+    api "androidx.work:work-gcm:$work_version"
+
+
+    // CameraX core library using the camera2 implementation
+    def camerax_version = "1.0.0-beta12"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    api "androidx.camera:camera-core:${camerax_version}"
+    api "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    api "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    api "androidx.camera:camera-view:1.0.0-alpha19"
+    // If you want to additionally use the CameraX Extensions library
+    api "androidx.camera:camera-extensions:1.0.0-alpha19"
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feat_choose_photo">选择图片</string>
+    <string name="feat_choose_photo_max">最多可选择%1$s张!</string>
+    <string name="feat_take_photo">拍照</string>
+    <string name="feat_qr_scan">二维码扫描</string>
+    <string name="feat_identify">识别中</string>
+</resources>
