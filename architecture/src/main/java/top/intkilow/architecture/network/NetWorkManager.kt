@@ -1,5 +1,6 @@
 package top.intkilow.architecture.network
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,6 +10,7 @@ import top.intkilow.architecture.network.interceptor.AuthorizationInterceptor
 import top.intkilow.architecture.network.interceptor.BaseInterceptor
 import top.intkilow.architecture.network.interceptor.HttpLogger
 import java.util.concurrent.TimeUnit
+
 
 class NetWorkManager {
     private var retrofit: Retrofit? = null
@@ -48,6 +50,7 @@ class NetWorkManager {
             .client(client)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         // 初始化Retrofit

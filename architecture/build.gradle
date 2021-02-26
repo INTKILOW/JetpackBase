@@ -38,6 +38,7 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofit_sdk_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_sdk_version"
     api "com.squareup.okhttp3:logging-interceptor:4.8.1"
+//    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_sdk_version"
 
     // 本地存储
     api "androidx.datastore:datastore-preferences:1.0.0-alpha05"

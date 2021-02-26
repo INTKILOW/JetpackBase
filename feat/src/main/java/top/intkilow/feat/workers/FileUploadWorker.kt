@@ -16,7 +16,7 @@ import top.intkilow.feat.api.FeatApi
 import java.io.ByteArrayOutputStream
 
 /**
- * 上传图片任务
+ * 上传文件任务
  */
 class FileUploadWorker(context: Context, workerParams: WorkerParameters)
     : CoroutineWorker(context, workerParams) {
