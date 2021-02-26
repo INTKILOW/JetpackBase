@@ -6,14 +6,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import top.intkilow.architecture.network.ArchitectureApi
-import top.intkilow.architecture.network.NetWorkManager
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class FileTransfer {
     companion object {
@@ -33,13 +32,21 @@ class FileTransfer {
         ) {
             val errMsg = "download fail!"
             val successMsg = "download ok!"
-            val call = NetWorkManager.getInstance().getApiService(ArchitectureApi::class.java)
-                .downloadFile(url)
-            call.enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
+
+            val request: Request = Request.Builder()
+                .url(url)
+                .build()
+            val client: OkHttpClient = OkHttpClient.Builder()
+                .connectTimeout((1000 * 5).toLong(), TimeUnit.MILLISECONDS)
+                .build()
+
+            val call = client.newCall(request)
+            call.enqueue(object : Callback{
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    result(null, e.message ?: errMsg)
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                     val newPath = context.filesDir.path + filePath
                     val parentDir = File(newPath)
                     if (!parentDir.exists()) {
@@ -47,9 +54,10 @@ class FileTransfer {
                     }
                     val file = File(newPath + File.separator + fileName)
                     var msg = successMsg
-                    response.body()?.byteStream()?.use { inputStream ->
+
+                    response.body?.byteStream()?.use { inputStream ->
                         FileOutputStream(file).use { fos ->
-                            val total = response.body()?.contentLength() ?: 0L
+                            val total = response.body?.contentLength() ?: 0L
                             try {
                                 var len = -1
                                 val buf = ByteArray(2048)
@@ -85,11 +93,9 @@ class FileTransfer {
                     // 下载完成 但不一定成功
                     result(file, msg)
                 }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    result(null, t.message ?: errMsg)
-                }
             })
+
+
 
         }
 

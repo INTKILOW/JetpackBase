@@ -50,7 +50,6 @@ class NetWorkManager {
             .client(client)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         // 初始化Retrofit
