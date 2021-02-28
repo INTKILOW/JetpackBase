@@ -33,5 +33,6 @@ android {
 }
 
 dependencies {
+    api 'com.tencent.tbs.tbssdk:sdk:43939'
     api project(':architecture')
 }

@@ -1,7 +1,7 @@
 "# JetpackBase" 
 
 快速开发，专注业务
-navigation、databinding、viewmodel、retroift、okhttp、协程、paging
+navigation、databinding、viewmodel、retroift、okhttp、协程、paging、datastore...
 
 注意:
 

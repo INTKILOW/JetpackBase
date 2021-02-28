@@ -10,6 +10,15 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="web" />
+
+        <top.intkilow.feat.widget.TBSWebView
+            android:id="@+id/web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </layout>

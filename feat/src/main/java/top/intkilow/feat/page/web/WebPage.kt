@@ -15,6 +15,8 @@ class WebPage : Fragment() {
 
         val binding =
                 FeatPageWebBinding.inflate(inflater, container, false)
+       val url = arguments?.getString("url")
+        binding.web.loadUrl(url)
 
         return binding.root
     }
