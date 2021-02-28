@@ -2,12 +2,18 @@ package top.intkilow.feat.page.preview
 
 import android.os.Bundle
 import android.view.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import top.intkilow.architecture.network.utils.FileTransfer
+import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.ViewUtils
+import top.intkilow.architecture.utils.setOnClickDebounced
+import top.intkilow.feat.R
 import top.intkilow.feat.databinding.FeaturePreviewPageBinding
 import top.intkilow.feat.widget.photoview.PhotoView
 
@@ -34,6 +40,7 @@ class PreviewPage : Fragment() {
 
         binding.viewPager.addOnPageChangeListener(pageListener)
         arguments?.getStringArrayList("images")?.let {
+            previewDialogModel.imgs.value = it
             binding.viewPager.adapter = SamplePagerAdapter(it)
             previewDialogModel.total.value = it.size
             arguments?.getInt("current", 0)?.let { currentIndex ->
@@ -45,6 +52,32 @@ class PreviewPage : Fragment() {
                 binding.viewPager.currentItem = index
 
             }
+        }
+
+        context?.let {context->
+            val layoutParams = binding.download.layoutParams as ConstraintLayout.LayoutParams
+            layoutParams.topMargin += ViewUtils.getStatusBarHeight(context)
+            binding.download.layoutParams = layoutParams
+        }
+
+
+        binding.download.setOnClickDebounced {imageView->
+
+
+            context?.let {context->
+                val img = previewDialogModel.imgs.value?.get(binding.viewPager.currentItem)
+                img?.let {
+
+                    SnackbarUtil.run { toast(imageView,getString(R.string.feat_download_start)) }
+                    FileTransfer.download(img,context,result = {file, msg ->
+                        if(msg.contains("ok")){
+                            SnackbarUtil.run { toast(imageView,getString(R.string.feat_download_success)) }
+                        }
+                    })
+                }
+
+            }
+
         }
         return binding.root
     }

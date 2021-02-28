@@ -276,11 +276,15 @@ class TBSWebView @JvmOverloads constructor(
     }
 
 
-    fun setTBSWebViewCallback(tbsWebViewCallback: TBSWebViewCallback?): TBSWebView? {
+    fun setTBSWebViewCallback(tbsWebViewCallback: TBSWebViewCallback): TBSWebView {
         mTBSWebViewCallback = tbsWebViewCallback
         return this
     }
 
+
+    fun getTBSWebViewCallback(): TBSWebViewCallback? {
+        return mTBSWebViewCallback
+    }
     /**
      * 展开收起
      */
