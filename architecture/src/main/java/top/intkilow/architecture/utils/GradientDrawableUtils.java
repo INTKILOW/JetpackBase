@@ -2,17 +2,6 @@ package top.intkilow.architecture.utils;
 
 import android.graphics.drawable.GradientDrawable;
 
-/**
- * Copyright (C), 2015/6/12, 日照安泰科技发展有限公司
- * Author: flyzhang
- * Date: 2020/2/25 14:49
- * Description:
- * <p>
- * </p>
- * History:
- * <author>      <time>      <version>      <desc>
- * 作者姓名       修改时间     版本号         描述
- */
 public class GradientDrawableUtils {
     public static GradientDrawable getDrawable(int backgroundColor,int strokeColor,int strokeWidth,int shape,float[] f) {
 

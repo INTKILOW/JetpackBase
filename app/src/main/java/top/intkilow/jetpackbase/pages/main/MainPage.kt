@@ -56,7 +56,7 @@ class MainPage : Fragment() {
                             Log.e("TAG", "porgress = $it")
 
                         },
-                        true
+                        saveAlbum = true
                     )
                 }
 
