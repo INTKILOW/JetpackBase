@@ -4,7 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.INTKILOW'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
