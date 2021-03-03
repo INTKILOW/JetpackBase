@@ -5,14 +5,12 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.INTKILOW'
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
-    defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
-    }
 
     buildTypes {
         release {
