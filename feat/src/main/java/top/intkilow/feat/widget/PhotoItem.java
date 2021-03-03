@@ -64,7 +64,7 @@ public class PhotoItem extends AppCompatImageView {
 
     private final Path mTraPath = new Path();
     private final Rect mMeasureRect = new Rect();
-    private final int color = Color.parseColor("#07C15C");
+    private final int color = ViewUtils.Companion.getColorPrimary();
     /**
      * radiusArray[0] = leftTop;
      * radiusArray[1] = leftTop;

@@ -48,7 +48,7 @@ class QRScanPage : Fragment() {
     private lateinit var binding: FeatQrscanPageBinding
 
     companion object {
-        var borderColor = 0xFF07AF39.toInt()
+        var borderColor = ViewUtils.colorPrimary
     }
 
     override fun onCreateView(

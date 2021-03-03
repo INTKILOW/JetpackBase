@@ -8,6 +8,8 @@ import android.view.ViewOutlineProvider
 
 class ViewUtils {
     companion object {
+        var colorPrimary:Int = 0xFFFF5722.toInt()
+
         /**
          * 获取屏幕宽高
          * [0,0]

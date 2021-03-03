@@ -1,10 +1,15 @@
 package top.intkilow.feat.widget
+
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ClipDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -25,6 +30,7 @@ import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import org.json.JSONException
 import org.json.JSONObject
+import top.intkilow.architecture.utils.GradientDrawableUtils
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.R
 import java.lang.ref.WeakReference
@@ -63,8 +69,8 @@ class TBSWebView @JvmOverloads constructor(
     private fun init() {
         mContextWeakReference = WeakReference(context)
         val webSettings: WebSettings = settings
-        webSettings.javaScriptEnabled = true
 
+        webSettings.javaScriptEnabled = true
         webSettings.javaScriptCanOpenWindowsAutomatically = true
         webSettings.useWideViewPort = true //关键点
         webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
@@ -230,19 +236,35 @@ class TBSWebView @JvmOverloads constructor(
         return enableFixImageScreenW(true)
     }
 
-    fun enableFixImageScreenW(enable: Boolean): TBSWebView? {
+    fun enableFixImageScreenW(enable: Boolean): TBSWebView {
         mFixImageScreenWidth = enable
         return this
     }
 
-    fun enableProgress(): TBSWebView? {
+    fun enableProgress(): TBSWebView {
         if (null == mProgressBar) {
             mProgressBar =
                 ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
             mProgressBar!!.max = 100
-            val drawable =
-                resources.getDrawable(R.drawable.feat_progress)
-            mProgressBar!!.progressDrawable = drawable
+            val bgDrawable = GradientDrawableUtils.getDrawable(
+                Color.WHITE,
+                GradientDrawable.RECTANGLE,
+                0f
+            )
+            val progressDrawable = GradientDrawableUtils.getDrawable(
+                ViewUtils.colorPrimary,
+                GradientDrawable.RECTANGLE,
+                0f
+            )
+            val layers = arrayOfNulls<Drawable>(2)
+            layers[0] = bgDrawable
+            layers[1] = ClipDrawable(progressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL)
+            val newDrawable = LayerDrawable(layers)
+
+
+
+
+            mProgressBar!!.progressDrawable = newDrawable
             val layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(1))
             mProgressBar!!.layoutParams = layoutParams
@@ -285,6 +307,7 @@ class TBSWebView @JvmOverloads constructor(
     fun getTBSWebViewCallback(): TBSWebViewCallback? {
         return mTBSWebViewCallback
     }
+
     /**
      * 展开收起
      */
