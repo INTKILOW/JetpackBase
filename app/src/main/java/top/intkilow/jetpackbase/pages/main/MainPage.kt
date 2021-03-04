@@ -5,18 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.createDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import top.intkilow.architecture.nav.NavControllerHelper
+import top.intkilow.architecture.network.NetWorkManager
+import top.intkilow.architecture.utils.DataStoreUtil
 import top.intkilow.architecture.utils.LogUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.constant.*
 import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
+import top.intkilow.feat.page.qr.SCAN_RESULT_DATA
 import top.intkilow.feat.vo.PhotoVO
 import top.intkilow.jetpackbase.R
 import top.intkilow.jetpackbase.databinding.AppMainBinding
 
 class MainPage : Fragment() {
+    private val  mainModel: MainModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +37,15 @@ class MainPage : Fragment() {
             CHOOSE_PHOTO_RESULT_DATA,
             result = {
 
-                LogUtil.e(it,"66666")
+                LogUtil.e(it, "66666")
+            },
+            viewLifecycleOwner
+        )
+        NavControllerHelper.getSavedStateHandle<String>(
+            this,
+            SCAN_RESULT_DATA,
+            result = {
+                LogUtil.e(it, "66666")
             },
             viewLifecycleOwner
         )
@@ -93,8 +108,23 @@ class MainPage : Fragment() {
                 }, NavControllerHelper.getNavOptions()
             )
         }
+        binding.set.setOnClickDebounced {
+            mainModel.setDataStore()
+        }
+        binding.get.setOnClickDebounced {
+            mainModel.getDataStore()
+        }
 
+        LogUtil.block {
+            LogUtil.e("0000000000000000")
+            LogUtil.e("111111")
+            LogUtil.e("22222")
+            LogUtil.e("333")
+        }
 
         return binding.root
     }
+
+
+
 }

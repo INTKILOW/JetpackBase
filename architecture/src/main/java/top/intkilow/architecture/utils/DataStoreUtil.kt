@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.preferencesKey
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import top.intkilow.architecture.constant.EXPIRES_TIME
@@ -12,7 +13,29 @@ import top.intkilow.architecture.constant.TOKEN_TIME
 
 class DataStoreUtil {
     companion object {
+        // 使用前请先设置baseToken
         var BASE_TOKEN = ""
+
+        suspend fun <T> set(dataStore: DataStore<Preferences>?, key: String, data: T) {
+            val msg = Gson().toJson(data)
+            val DATA = preferencesKey<String>(key)
+            dataStore?.edit {
+                it[DATA] = msg
+            }
+        }
+
+        suspend fun <T> get(dataStore: DataStore<Preferences>?, key: String, clazz: Class<T>): T? {
+            val DATA = preferencesKey<String>(key)
+            val result = dataStore?.data?.map { preferences ->
+                preferences[DATA] ?: ""
+            }?.first() ?: ""
+
+            if (result.isNotEmpty()) {
+                return Gson().fromJson(result, clazz)
+            }
+            return null
+        }
+
 
         suspend fun setToken(dataStore: DataStore<Preferences>?, token: String, tokenTime: Long) {
 

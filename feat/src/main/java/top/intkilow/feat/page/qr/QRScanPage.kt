@@ -23,9 +23,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
+import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.ui.SnackbarUtil
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatQrscanPageBinding
+import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
 import top.intkilow.feat.qrscan.Decoder
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -220,17 +222,13 @@ class QRScanPage : Fragment() {
 
 
     private fun finish(result: String) {
-        val savedStateHandle: SavedStateHandle? = arguments?.getInt("destinationId")?.let {
-            findNavController().getBackStackEntry(it).savedStateHandle
-        } ?: findNavController().previousBackStackEntry?.savedStateHandle
 
-        savedStateHandle?.apply {
-            getLiveData<Bundle>(SCAN_RESULT_DATA).apply {
-                value = Bundle().apply {
-                    putString("result", result)
-                }
-            }
-        }
+        NavControllerHelper.setSavedStateHandle(
+            this,
+            SCAN_RESULT_DATA,
+            result,
+            arguments?.getInt("destinationId", -1) ?: -1
+        )
         findNavController().navigateUp()
     }
 

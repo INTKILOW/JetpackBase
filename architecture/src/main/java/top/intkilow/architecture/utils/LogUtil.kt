@@ -26,6 +26,19 @@ class LogUtil {
             log(4, msg, message = tag)
         }
 
+
+        fun block(call: () -> Unit) {
+            if (!BuildConfig.DEBUG) {
+                return
+            }
+            try {
+                call.invoke()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+
         private fun <T> log(
             type: Int,
             data: T,
