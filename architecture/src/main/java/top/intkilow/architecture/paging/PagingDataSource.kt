@@ -1,4 +1,4 @@
-package top.intkilow.architecture.datasource
+package top.intkilow.architecture.paging
 
 import androidx.paging.PagingSource
 import top.intkilow.architecture.network.vo.BaseResponse

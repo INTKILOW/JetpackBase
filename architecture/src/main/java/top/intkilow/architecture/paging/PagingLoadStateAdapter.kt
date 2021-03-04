@@ -1,4 +1,4 @@
-package top.intkilow.architecture.datasource
+package top.intkilow.architecture.paging
 
 import android.view.LayoutInflater
 import android.view.View

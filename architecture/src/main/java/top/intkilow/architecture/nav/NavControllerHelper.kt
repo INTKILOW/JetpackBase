@@ -4,11 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import top.intkilow.architecture.R
+import java.util.*
 
 
 class NavControllerHelper {
@@ -32,10 +36,10 @@ class NavControllerHelper {
         }
 
         fun navMainDestination(
-                fragment: Fragment,
-                startDestination: Int,
-                inclusive: Boolean,
-                args: Bundle
+            fragment: Fragment,
+            startDestination: Int,
+            inclusive: Boolean,
+            args: Bundle
         ) {
             val controller = findNavController(fragment)
             val graph = controller.graph
@@ -66,9 +70,9 @@ class NavControllerHelper {
 
             try {
                 val navId = context.resources.getIdentifier(
-                        graphName,
-                        "navigation",
-                        context.packageName
+                    graphName,
+                    "navigation",
+                    context.packageName
                 )
                 val newGraph = navController.navInflater.inflate(navId)
                 navController.graph.addAll(newGraph)
@@ -96,6 +100,55 @@ class NavControllerHelper {
             }
 
             return builder.build()
+        }
+
+        /**
+         * 设置回调
+         * 类似 setResult
+         */
+        fun <T> setSavedStateHandle(
+            fragment: Fragment,
+            key: String,
+            data: T,
+            destinationId: Int = -1
+        ) {
+
+            val savedStateHandle: SavedStateHandle? = if (destinationId > 0) {
+                try {
+                    findNavController(fragment).getBackStackEntry(destinationId).savedStateHandle
+                } catch (e: Exception) {
+                    findNavController(fragment).previousBackStackEntry?.savedStateHandle
+                }
+            } else {
+                findNavController(fragment).previousBackStackEntry?.savedStateHandle
+            }
+
+            savedStateHandle?.apply {
+                getLiveData<T>(key).apply {
+                    value = data
+                }
+            }
+        }
+
+        /**
+         * 获取回调
+         * 类似 startForResult
+         */
+        fun <T> getSavedStateHandle(
+            fragment: Fragment,
+            key: String,
+            result: (data: T) -> Unit,
+            lifecycleOwner: LifecycleOwner
+        ) {
+            findNavController(fragment)
+                .currentBackStackEntry
+                ?.savedStateHandle
+                ?.let { savedStateHandle ->
+                    savedStateHandle.getLiveData<T>(key).observe(lifecycleOwner) { data ->
+                        savedStateHandle.remove<T>(key)
+                        result(data)
+                    }
+                }
         }
 
 

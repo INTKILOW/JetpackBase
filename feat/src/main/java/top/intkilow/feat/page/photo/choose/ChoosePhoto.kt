@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.ui.SnackbarUtil
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatureChoosePhotoBinding
@@ -51,24 +52,28 @@ class ChoosePhoto : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.let { context ->
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    context, Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 choosePhotoModel.init()
             } else {
-                this.requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        PHOTO_REQUEST_CODE)
+                this.requestPermissions(
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    PHOTO_REQUEST_CODE
+                )
             }
         }
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
 
         val binding =
-                FeatureChoosePhotoBinding.inflate(inflater, container, false)
+            FeatureChoosePhotoBinding.inflate(inflater, container, false)
         // 默认可选数量
         val max = arguments?.getInt("max", maxDefault) ?: maxDefault
         choosePhotoModel.chooseSize.value = max
@@ -86,14 +91,16 @@ class ChoosePhoto : Fragment() {
                     context?.let { context ->
                         when (PackageManager.PERMISSION_GRANTED) {
                             ContextCompat.checkSelfPermission(
-                                    context,
-                                    Manifest.permission.CAMERA
+                                context,
+                                Manifest.permission.CAMERA
                             ) -> {
                                 dispatchTakePictureIntent()
                             }
                             else -> {
-                                this.requestPermissions(arrayOf(Manifest.permission.CAMERA),
-                                        PHOTO_TAKE_CODE)
+                                this.requestPermissions(
+                                    arrayOf(Manifest.permission.CAMERA),
+                                    PHOTO_TAKE_CODE
+                                )
                             }
                         }
                     }
@@ -110,25 +117,15 @@ class ChoosePhoto : Fragment() {
         binding.confirmButton.setOnClickListener {
 
             val adapter =
-                    binding.recyclerView.adapter
+                binding.recyclerView.adapter
             if (adapter is PhotoAdapter) {
-                val savedStateHandle: SavedStateHandle? = arguments?.getInt("destinationId", -1)
-                        ?.let {
-                            if (it > 0) {
-
-                                findNavController().getBackStackEntry(it).savedStateHandle
-                            } else {
-                                findNavController().previousBackStackEntry?.savedStateHandle
-                            }
-
-                        }
-                        ?: findNavController().previousBackStackEntry?.savedStateHandle
-
-                savedStateHandle?.apply {
-                    getLiveData<LinkedList<PhotoVO>>(CHOOSE_PHOTO_RESULT_DATA).apply {
-                        value = adapter.selectData
-                    }
-                }
+                // setFragmentCallBack
+                NavControllerHelper.setSavedStateHandle(
+                    this,
+                    CHOOSE_PHOTO_RESULT_DATA,
+                    adapter.selectData,
+                    arguments?.getInt("destinationId", -1) ?: -1
+                )
             }
             findNavController().navigateUp()
 
@@ -140,7 +137,7 @@ class ChoosePhoto : Fragment() {
         context?.let { context ->
             // 设置bar
             val layoutParams = binding
-                    .toolbar.layoutParams as ConstraintLayout.LayoutParams
+                .toolbar.layoutParams as ConstraintLayout.LayoutParams
             layoutParams.topMargin = ViewUtils.getStatusBarHeight(context)
             binding.toolbar.layoutParams = layoutParams
 
@@ -154,14 +151,16 @@ class ChoosePhoto : Fragment() {
     @Throws(IOException::class)
     private fun createImageFile(context: Context): File {
         // Create an image file name
-        val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                Locale.CHINA).format(Date())
+        val timeStamp = SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss",
+            Locale.CHINA
+        ).format(Date())
 
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-                "JPEG_${timeStamp}_", /* prefix */
-                ".jpg", /* suffix */
-                storageDir /* directory */
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
@@ -187,9 +186,9 @@ class ChoosePhoto : Fragment() {
                     // Continue only if the File was successfully created
                     photoFile?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(
-                                context,
-                                "${context.packageName}.FileProvider",
-                                it
+                            context,
+                            "${context.packageName}.FileProvider",
+                            it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
@@ -217,8 +216,10 @@ class ChoosePhoto : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         var pass = true
         grantResults.forEach {
