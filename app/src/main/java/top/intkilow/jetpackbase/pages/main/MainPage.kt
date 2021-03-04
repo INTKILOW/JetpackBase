@@ -1,19 +1,12 @@
 package top.intkilow.jetpackbase.pages.main
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.view.PreviewView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
 import top.intkilow.architecture.nav.NavControllerHelper
-import top.intkilow.architecture.network.utils.FileTransfer
-import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.constant.*
 import top.intkilow.jetpackbase.R

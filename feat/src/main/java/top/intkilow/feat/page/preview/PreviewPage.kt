@@ -2,7 +2,6 @@ package top.intkilow.feat.page.preview
 
 import android.os.Bundle
 import android.view.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,7 +10,6 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import top.intkilow.architecture.network.utils.FileTransfer
 import top.intkilow.architecture.ui.SnackbarUtil
-import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.R
 import top.intkilow.feat.databinding.FeaturePreviewPageBinding
@@ -52,12 +50,6 @@ class PreviewPage : Fragment() {
                 binding.viewPager.currentItem = index
 
             }
-        }
-
-        context?.let {context->
-            val layoutParams = binding.download.layoutParams as ConstraintLayout.LayoutParams
-            layoutParams.topMargin += ViewUtils.getStatusBarHeight(context)
-            binding.download.layoutParams = layoutParams
         }
 
 

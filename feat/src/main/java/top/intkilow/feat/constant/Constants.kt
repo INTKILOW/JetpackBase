@@ -1,11 +1,5 @@
 package top.intkilow.feat.constant
 
-const val TOKEN = "token"
-
-const val TOKEN_TIME = "token_time"
-
-const val EXPIRES_TIME = "expires_time"
-
 const val PAGE = "springboard_page"
 
 const val CHOOSE_PHOTO_PAGE = "feat_choose_photo"

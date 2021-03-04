@@ -12,6 +12,7 @@ import top.intkilow.feat.constant.CHOOSE_PHOTO_PAGE
 import top.intkilow.feat.constant.PAGE
 import top.intkilow.feat.constant.PHOTO_PREVIEW_PAGE
 import top.intkilow.feat.constant.SCAN_PAGE
+import top.intkilow.feat.constant.PAGE
 
 /**
  * 跳板页面

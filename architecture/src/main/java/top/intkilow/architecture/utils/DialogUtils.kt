@@ -1,4 +1,4 @@
-package top.intkilow.feat.utils
+package top.intkilow.architecture.utils
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner

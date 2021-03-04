@@ -1,4 +1,4 @@
-package top.intkilow.feat.utils
+package top.intkilow.architecture.utils
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -6,7 +6,9 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.preferencesKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import top.intkilow.feat.constant.*
+import top.intkilow.architecture.constant.EXPIRES_TIME
+import top.intkilow.architecture.constant.TOKEN
+import top.intkilow.architecture.constant.TOKEN_TIME
 
 class TokenStoreUtil {
     companion object {
