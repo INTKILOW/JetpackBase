@@ -30,7 +30,6 @@ import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import org.json.JSONException
 import org.json.JSONObject
-import top.intkilow.architecture.utils.GradientDrawableUtils
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.R
 import java.lang.ref.WeakReference
@@ -246,25 +245,25 @@ class TBSWebView @JvmOverloads constructor(
             mProgressBar =
                 ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
             mProgressBar!!.max = 100
-            val bgDrawable = GradientDrawableUtils.getDrawable(
-                Color.WHITE,
-                GradientDrawable.RECTANGLE,
-                0f
-            )
-            val progressDrawable = GradientDrawableUtils.getDrawable(
-                ViewUtils.colorPrimary,
-                GradientDrawable.RECTANGLE,
-                0f
-            )
-            val layers = arrayOfNulls<Drawable>(2)
-            layers[0] = bgDrawable
-            layers[1] = ClipDrawable(progressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL)
-            val newDrawable = LayerDrawable(layers)
+            mContextWeakReference.get()?.let {
+                val bgDrawable = ViewUtils.getGradientDrawable(
+                    it, Color.WHITE,
+                    GradientDrawable.RECTANGLE, 0f
+                )
+                val progressDrawable = ViewUtils.getGradientDrawable(
+                    it, ViewUtils.colorPrimary,
+                    GradientDrawable.RECTANGLE, 0f
+                )
 
 
+                val layers = arrayOfNulls<Drawable>(2)
+                layers[0] = bgDrawable
+                layers[1] = ClipDrawable(progressDrawable, Gravity.START, ClipDrawable.HORIZONTAL)
+                val newDrawable = LayerDrawable(layers)
 
+                mProgressBar!!.progressDrawable = newDrawable
+            }
 
-            mProgressBar!!.progressDrawable = newDrawable
             val layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(1))
             mProgressBar!!.layoutParams = layoutParams

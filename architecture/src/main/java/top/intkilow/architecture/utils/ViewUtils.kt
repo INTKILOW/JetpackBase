@@ -2,6 +2,7 @@ package top.intkilow.architecture.utils
 
 import android.content.Context
 import android.graphics.Outline
+import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewOutlineProvider
@@ -34,6 +35,40 @@ class ViewUtils {
 
             return 0
 
+        }
+
+        /**
+         * 获取 drawable
+         */
+        fun getGradientDrawable(
+            context: Context,
+            backgroundColor: Int,
+            shape: Int,
+            corner: Float = 4.0f,
+            corners: FloatArray? = null,
+            strokeColor: Int? = null,
+            strokeWidth: Int? = null,
+        ): GradientDrawable {
+            //创建Drawable对象
+            val drawable = GradientDrawable()
+            //设置背景色
+            drawable.setColor(backgroundColor)
+            //设置圆角的半径  
+            if (null != corners) {
+                for (i in corners.indices) {
+                    val dp2px = dp2px(context, corners[i])
+                    corners[i] = dp2px.toFloat()
+                }
+                drawable.cornerRadii = corners
+            } else {
+                drawable.cornerRadius = dp2px(context, corner).toFloat()
+            }
+            if (strokeWidth != null && strokeColor != null) {
+                drawable.setStroke(strokeWidth, strokeColor)
+            }
+            //设置shape形状
+            drawable.shape = shape
+            return drawable
         }
 
         /**
