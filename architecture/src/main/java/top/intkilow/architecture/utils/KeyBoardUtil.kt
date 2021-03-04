@@ -15,7 +15,7 @@ class KeyBoardUtil {
         fun hideInputKeyboard(v: View) {
             val imm: InputMethodManager? =
                 v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm?.hideSoftInputFromWindow(v.getWindowToken(), 0)
+            imm?.hideSoftInputFromWindow(v.windowToken, 0)
         }
 
         /**

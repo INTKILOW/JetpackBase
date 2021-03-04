@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import top.intkilow.architecture.nav.NavControllerHelper
+import top.intkilow.architecture.utils.LogUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.constant.*
 import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
@@ -24,9 +25,15 @@ class MainPage : Fragment() {
         val binding = AppMainBinding.inflate(inflater, container, false)
 
 
-        NavControllerHelper.getSavedStateHandle<List<PhotoVO>>(this,CHOOSE_PHOTO_RESULT_DATA,result = {
-            Log.e("TAG", "$CHOOSE_PHOTO_RESULT_DATA = ${it}")
-        },viewLifecycleOwner)
+        NavControllerHelper.getSavedStateHandle<List<PhotoVO>>(
+            this,
+            CHOOSE_PHOTO_RESULT_DATA,
+            result = {
+
+                LogUtil.e(it,"66666")
+            },
+            viewLifecycleOwner
+        )
 
 
         binding.web.setOnClickDebounced {
@@ -37,7 +44,7 @@ class MainPage : Fragment() {
                         PAGE,
                         WEB_PAGE
                     )
-                    putString("content","https://www.baidu.com")
+                    putString("content", "https://www.baidu.com")
                 }, NavControllerHelper.getNavOptions()
             )
         }
@@ -67,8 +74,8 @@ class MainPage : Fragment() {
                         PAGE,
                         PHOTO_PREVIEW_PAGE
                     )
-                    putStringArrayList("images",arr)
-                    putInt("current",1)
+                    putStringArrayList("images", arr)
+                    putInt("current", 1)
                 }, NavControllerHelper.getNavOptions()
             )
         }
@@ -81,8 +88,8 @@ class MainPage : Fragment() {
                         PAGE,
                         CHOOSE_PHOTO_PAGE
                     )
-                    putInt("max",4)
-                    putInt("destinationId",0)
+                    putInt("max", 4)
+                    putInt("destinationId", 0)
                 }, NavControllerHelper.getNavOptions()
             )
         }

@@ -10,7 +10,7 @@ import top.intkilow.architecture.constant.EXPIRES_TIME
 import top.intkilow.architecture.constant.TOKEN
 import top.intkilow.architecture.constant.TOKEN_TIME
 
-class TokenStoreUtil {
+class DataStoreUtil {
     companion object {
         var BASE_TOKEN = ""
 
