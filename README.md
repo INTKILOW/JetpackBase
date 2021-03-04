@@ -3,6 +3,23 @@
 快速开发，专注业务  
 navigation、databinding、viewmodel、retroift、okhttp、协程、paging、datastore...
 
+# 如何使用（最新版本以当前为准）
+```kotlin
+    // Step 1. Add the JitPack repository to your build file
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://www.jitpack.io' }
+		}
+	}
+```
+```kotlin
+    // Step 2. Add the dependency
+	dependencies {
+	    implementation 'com.github.INTKILOW:JetpackBase:0.0.1-alpha02'
+	}
+```
+
 # 注意:
 
 ## 1、使用网络请求先初始化网络
