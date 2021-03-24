@@ -142,7 +142,9 @@ class ChoosePhoto : Fragment() {
             binding.toolbar.layoutParams = layoutParams
 
         }
-
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return binding.root
     }
