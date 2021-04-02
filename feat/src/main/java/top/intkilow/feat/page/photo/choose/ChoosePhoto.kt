@@ -189,7 +189,7 @@ class ChoosePhoto : Fragment() {
                     photoFile?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(
                             context,
-                            "${context.packageName}.FileProvider",
+                            "${context.packageName}.fileProvider",
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)

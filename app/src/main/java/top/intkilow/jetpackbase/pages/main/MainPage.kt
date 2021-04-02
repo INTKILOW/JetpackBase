@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import top.intkilow.architecture.adapter.BasePagerAdapter
 import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.network.NetWorkManager
 import top.intkilow.architecture.utils.DataStoreUtil
@@ -21,9 +22,11 @@ import top.intkilow.feat.page.qr.SCAN_RESULT_DATA
 import top.intkilow.feat.vo.PhotoVO
 import top.intkilow.jetpackbase.R
 import top.intkilow.jetpackbase.databinding.AppMainBinding
+import top.intkilow.jetpackbase.pages.home.HomePage
+import top.intkilow.jetpackbase.pages.setting.SettingPage
 
 class MainPage : Fragment() {
-    private val  mainModel: MainModel by viewModels()
+    private val mainModel: MainModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,99 +35,36 @@ class MainPage : Fragment() {
         val binding = AppMainBinding.inflate(inflater, container, false)
 
 
-        NavControllerHelper.getSavedStateHandle<List<PhotoVO>>(
-            this,
-            CHOOSE_PHOTO_RESULT_DATA,
-            result = {
-
-                LogUtil.e(it, "66666")
-            },
-            viewLifecycleOwner
+        val tabFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
+            0 to { HomePage() },
+            1 to { SettingPage() },
         )
-        NavControllerHelper.getSavedStateHandle<String>(
-            this,
-            SCAN_RESULT_DATA,
-            result = {
-                LogUtil.e(it, "66666")
-            },
-            viewLifecycleOwner
-        )
+        // 禁止滑动
+        binding.pager.isUserInputEnabled = false
+        binding.pager.adapter = BasePagerAdapter(tabFragmentsCreators, this)
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener { menu ->
+            var index = 0
+            when (menu.itemId) {
+                R.id.home -> {
 
+                    index = 0
+                }
+                R.id.setting -> {
+                    index = 1
+                }
+            }
+            mainModel.currentIndex.value = index
+            true
 
-        binding.web.setOnClickDebounced {
-            findNavController().navigate(
-                R.id.springboard,
-                Bundle().apply {
-                    putString(
-                        PAGE,
-                        WEB_PAGE
-                    )
-                    putString("content", "https://www.baidu.com")
-                }, NavControllerHelper.getNavOptions()
-            )
         }
-
-        binding.scan.setOnClickDebounced {
-            findNavController().navigate(
-                R.id.springboard,
-                Bundle().apply {
-                    putString(
-                        PAGE,
-                        SCAN_PAGE
-                    )
-                }, NavControllerHelper.getNavOptions()
-            )
-        }
-
-
-        binding.preview.setOnClickDebounced {
-
-            val arr = ArrayList<String>()
-            arr.add("https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF")
-            arr.add("https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF")
-            findNavController().navigate(
-                R.id.springboard,
-                Bundle().apply {
-                    putString(
-                        PAGE,
-                        PHOTO_PREVIEW_PAGE
-                    )
-                    putStringArrayList("images", arr)
-                    putInt("current", 1)
-                }, NavControllerHelper.getNavOptions()
-            )
-        }
-
-        binding.choosePhoto.setOnClickDebounced {
-            findNavController().navigate(
-                R.id.springboard,
-                Bundle().apply {
-                    putString(
-                        PAGE,
-                        CHOOSE_PHOTO_PAGE
-                    )
-                    putInt("max", 4)
-                    putInt("destinationId", 0)
-                }, NavControllerHelper.getNavOptions()
-            )
-        }
-        binding.set.setOnClickDebounced {
-            mainModel.setDataStore()
-        }
-        binding.get.setOnClickDebounced {
-            mainModel.getDataStore()
-        }
-
-        LogUtil.block {
-            LogUtil.e("0000000000000000")
-            LogUtil.e("111111")
-            LogUtil.e("22222")
-            LogUtil.e("333")
+        mainModel.currentIndex.observe(viewLifecycleOwner) { index ->
+            if (null != index) {
+                binding.pager.setCurrentItem(index, false)
+            }
         }
 
         return binding.root
     }
-
 
 
 }
