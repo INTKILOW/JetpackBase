@@ -16,7 +16,7 @@ navigation、databinding、viewmodel、retroift、okhttp、协程、paging、dat
 ```kotlin
     // Step 2. Add the dependency
 	dependencies {
-	    implementation 'com.github.INTKILOW:JetpackBase:0.0.1-alpha02'
+	    implementation 'com.github.INTKILOW:JetpackBase:0.0.1-alpha03'
 	}
 ```
 
