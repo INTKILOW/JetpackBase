@@ -2,10 +2,7 @@ package top.intkilow.feat.page.photo.choose
 
 import android.app.Application
 import android.content.ContentUris
-import android.content.ContentValues
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import top.intkilow.architecture.network.utils.FileTransfer
+import top.intkilow.architecture.utils.FileTransfer
 import top.intkilow.feat.vo.PhotoVO
 import java.io.File
 import java.util.*

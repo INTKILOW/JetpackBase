@@ -1,19 +1,14 @@
 package top.intkilow.jetpackbase.pages.setting
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import top.intkilow.architecture.nav.NavControllerHelper
-import top.intkilow.architecture.network.utils.FileTransfer
+import top.intkilow.architecture.utils.FileTransfer
 import top.intkilow.architecture.ui.SnackbarUtil
 import top.intkilow.architecture.utils.LogUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
@@ -21,10 +16,8 @@ import top.intkilow.feat.constant.*
 import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
 import top.intkilow.feat.page.qr.SCAN_RESULT_DATA
 import top.intkilow.feat.vo.PhotoVO
-import top.intkilow.jetpackbase.BuildConfig
 import top.intkilow.jetpackbase.R
 import top.intkilow.jetpackbase.databinding.AppSettingBinding
-import java.io.File
 
 class SettingPage : Fragment() {
     private val settingModel: SettingModel by viewModels()

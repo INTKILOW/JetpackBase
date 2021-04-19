@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import top.intkilow.architecture.network.utils.FileTransfer
+import top.intkilow.architecture.utils.FileTransfer
 import top.intkilow.architecture.ui.SnackbarUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.R
@@ -61,7 +61,7 @@ class PreviewPage : Fragment() {
                 img?.let {
 
                     SnackbarUtil.run { toast(imageView,getString(R.string.feat_download_start)) }
-                    FileTransfer.download(img,context,result = {file, msg ->
+                    FileTransfer.download(img,context,result = { file, msg ->
                         if(msg.contains("ok")){
                             SnackbarUtil.run { toast(imageView,getString(R.string.feat_download_success)) }
                         }

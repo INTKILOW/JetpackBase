@@ -1,4 +1,4 @@
-package top.intkilow.architecture.network.utils
+package top.intkilow.architecture.utils
 
 import android.content.Context
 import android.graphics.Bitmap
