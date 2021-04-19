@@ -2,12 +2,14 @@ package top.intkilow.architecture.network.utils
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.core.content.FileProvider
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -21,12 +23,36 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class FileTransfer {
     companion object {
 
+        /**
+         * 安装 app
+         */
+        fun installAPK(file: File?, context: Context) {
+            file?.let { f ->
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                // 新版安装问题
+                val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    FileProvider.getUriForFile(
+                        context,
+                        "${context.packageName}.fileProvider",
+                        f
+                    )
+                } else {
+                    Uri.fromFile(file)
+                }
+
+                intent.setDataAndType(data, "application/vnd.android.package-archive")
+                context.startActivity(intent)
+            }
+
+        }
 
         /**
          * 文件上传

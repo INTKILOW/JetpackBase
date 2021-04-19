@@ -129,7 +129,7 @@ class SettingPage : Fragment() {
                     activity?.runOnUiThread {
                         binding.downloadApk.isEnabled = true
                         SnackbarUtil.toast(it,msg)
-                        installAPK(file, it.context)
+                        FileTransfer.installAPK(file, it.context)
                     }
 
                 })
@@ -138,28 +138,5 @@ class SettingPage : Fragment() {
         return binding.root
     }
 
-    /**
-     * 安装 app
-     */
-    private fun installAPK(file: File?, context: Context) {
-        file?.let { f ->
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            // 新版安装问题
-            val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                FileProvider.getUriForFile(
-                    context,
-                    "${context.packageName}.fileProvider",
-                    f
-                )
-            } else {
-                Uri.fromFile(file)
-            }
 
-            intent.setDataAndType(data, "application/vnd.android.package-archive")
-            startActivity(intent)
-        }
-
-    }
 }

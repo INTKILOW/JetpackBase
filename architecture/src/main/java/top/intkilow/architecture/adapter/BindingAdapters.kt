@@ -1,4 +1,5 @@
 package top.intkilow.architecture.adapter
+
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -19,27 +20,44 @@ fun bindIsGone(view: View, isGone: Boolean) {
     }
 }
 
-@BindingAdapter("bindSrc")
-fun bindSrc(view: ImageView, resId: Int) {
-    Glide.with(view.context).load(resId)
-            .centerCrop()
-            .into(view)
+@BindingAdapter(value = ["bindSrc", "corner"], requireAll = false)
+fun bindSrc(view: ImageView, resId: Int, corner: Int?) {
+
+    var transition = Glide.with(view.context)
+        .load(resId)
+        .transition(DrawableTransitionOptions.withCrossFade())
+
+    var options = RequestOptions()
+        .centerCrop()
+
+    corner?.let { c ->
+        // corner 是dp 需要转 px
+        options = options.transform(
+            CenterCrop(),
+            RoundedCorners(ViewUtils.dp2px(view.context, c.toFloat()))
+        )
+    }
+    transition = transition.apply(options)
+    transition.into(view)
+
 }
 
 @BindingAdapter(value = ["imageFromUrl", "corner"], requireAll = false)
 fun bindImageFromUrl(view: ImageView, imageUrl: String?, corner: Int?) {
     if (!imageUrl.isNullOrEmpty()) {
         var transition = Glide.with(view.context)
-                .load(imageUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
+            .load(imageUrl)
+            .transition(DrawableTransitionOptions.withCrossFade())
 
         var options = RequestOptions()
-                .centerCrop()
+            .centerCrop()
 
         corner?.let { c ->
             // corner 是dp 需要转 px
-            options = options.transform(CenterCrop(),
-                    RoundedCorners(ViewUtils.dp2px(view.context, c.toFloat())))
+            options = options.transform(
+                CenterCrop(),
+                RoundedCorners(ViewUtils.dp2px(view.context, c.toFloat()))
+            )
         }
         transition = transition.apply(options)
         transition.into(view)
