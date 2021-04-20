@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="top.intkilow.jetpackbase">
-
-    <!-- 7.0以上还需要安装未知来源的权 -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!--
      android:usesCleartextTraffic="true" 指示应用程序是否打算使用明文网络流量，例如明文HTTP。
     目标API级别为27或更低的应用程序的默认值为 true。

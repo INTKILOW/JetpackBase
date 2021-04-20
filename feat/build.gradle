@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    api 'com.tencent.tbs.tbssdk:sdk:43939'
+    api fileTree(dir: 'libs', include: ['*.jar'])
     api project(':architecture')
 }

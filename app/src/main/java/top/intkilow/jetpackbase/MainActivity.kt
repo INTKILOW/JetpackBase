@@ -16,14 +16,14 @@ class MainActivity : AppCompatActivity() {
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-
+/*
         val FLAGS_FULLSCREEN =
             View.SYSTEM_UI_FLAG_LOW_PROFILE or
                     View.SYSTEM_UI_FLAG_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 
-        binding.navHost.systemUiVisibility = FLAGS_FULLSCREEN
+        binding.navHost.systemUiVisibility = FLAGS_FULLSCREEN*/
 //        ActivityMainBinding.
     }
 }

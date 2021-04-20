@@ -22,15 +22,16 @@ class HomePage:Fragment() {
         binding.homeMode = homeModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        AudioCore.instance.play("http://m701.music.126.net/20210419172053/bf2fe39b41dde05980d33b7b411c2582/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/7937682490/216e/250f/f5c5/aec3a3796126774fcdf7e2330181345c.mp3",
-        onDuration = {duration->
-            LogUtil.e(duration,"duration")
-        })
+//        AudioCore.instance.play("http://m701.music.126.net/20210419172053/bf2fe39b41dde05980d33b7b411c2582/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/7937682490/216e/250f/f5c5/aec3a3796126774fcdf7e2330181345c.mp3",
+//        onDuration = {duration->
+//            LogUtil.e(duration,"duration")
+//        })
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        AudioCore.instance.release()
+//        AudioCore.instance.release()
     }
 }
