@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
 import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.StatusBarUtil
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatQrscanPageBinding
 import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
@@ -58,7 +59,7 @@ class QRScanPage : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        StatusBarUtil.setStatusBarColor(window = activity?.window,false)
         binding = FeatQrscanPageBinding.inflate(inflater, container, false)
 
 
@@ -70,8 +71,11 @@ class QRScanPage : Fragment() {
             camera?.cameraControl?.enableTorch(it)
         })
         binding.viewfinderView.setColor(borderColor, borderColor, borderColor)
-        val layoutParams = binding.backLayout.layoutParams as ConstraintLayout.LayoutParams
-        layoutParams.topMargin = ViewUtils.getStatusBarHeight(binding.backLayout.context)
+        if(ViewUtils.needStatusBar){
+            val layoutParams = binding.backLayout.layoutParams as ConstraintLayout.LayoutParams
+            layoutParams.topMargin = ViewUtils.getStatusBarHeight(binding.backLayout.context)
+        }
+
         binding.backLayout.setOnClickListener {
             findNavController().navigateUp()
         }

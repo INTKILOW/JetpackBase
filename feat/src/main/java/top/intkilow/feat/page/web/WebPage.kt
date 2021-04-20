@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import top.intkilow.architecture.interfaces.IOnBackPressed
+import top.intkilow.architecture.utils.StatusBarUtil
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.R
 import top.intkilow.feat.databinding.FeatPageWebBinding
@@ -58,17 +59,21 @@ class WebPage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        StatusBarUtil.setStatusBarColor(window = activity?.window)
         binding =
             FeatPageWebBinding.inflate(inflater, container, false)
         val content = arguments?.getString("content") ?: ""
         val contentType = arguments?.getString("type") ?: "url"
 
-        context?.let { context ->
-            binding.topView.layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewUtils.getStatusBarHeight(context)
-            )
+        if(ViewUtils.needStatusBar){
+            context?.let { context ->
+                binding.topView.layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewUtils.getStatusBarHeight(context)
+                )
+            }
         }
+
         binding.toolbar.setNavigationOnClickListener {
             if (binding.web.canGoBack()) {
                 binding.web.goBack()

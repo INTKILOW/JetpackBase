@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.StatusBarUtil
 import top.intkilow.architecture.utils.ViewUtils
 import top.intkilow.feat.databinding.FeatureChoosePhotoBinding
 import top.intkilow.feat.page.photo.adapter.PhotoAdapter
@@ -71,7 +72,7 @@ class ChoosePhoto : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        StatusBarUtil.setStatusBarColor(window = activity?.window,false)
         val binding =
             FeatureChoosePhotoBinding.inflate(inflater, container, false)
         // 默认可选数量
@@ -134,14 +135,17 @@ class ChoosePhoto : Fragment() {
 
         binding.choosePhotoModel = choosePhotoModel
         binding.lifecycleOwner = viewLifecycleOwner
-        context?.let { context ->
-            // 设置bar
-            val layoutParams = binding
-                .toolbar.layoutParams as ConstraintLayout.LayoutParams
-            layoutParams.topMargin = ViewUtils.getStatusBarHeight(context)
-            binding.toolbar.layoutParams = layoutParams
+        if(ViewUtils.needStatusBar){
+            context?.let { context ->
+                // 设置bar
+                val layoutParams = binding
+                    .toolbar.layoutParams as ConstraintLayout.LayoutParams
+                layoutParams.topMargin = ViewUtils.getStatusBarHeight(context)
+                binding.toolbar.layoutParams = layoutParams
 
+            }
         }
+
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }

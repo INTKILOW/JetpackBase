@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import top.intkilow.architecture.utils.FileTransfer
 import top.intkilow.architecture.ui.SnackbarUtil
+import top.intkilow.architecture.utils.StatusBarUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.R
 import top.intkilow.feat.databinding.FeaturePreviewPageBinding
@@ -30,7 +31,7 @@ class PreviewPage : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-
+        StatusBarUtil.setStatusBarColor(window = activity?.window,false)
         val binding =
                 FeaturePreviewPageBinding.inflate(inflater, container, false)
         binding.previewDialogModel = previewDialogModel

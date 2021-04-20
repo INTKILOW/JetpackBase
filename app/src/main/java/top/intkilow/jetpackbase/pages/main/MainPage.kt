@@ -15,6 +15,7 @@ import top.intkilow.architecture.nav.NavControllerHelper
 import top.intkilow.architecture.network.NetWorkManager
 import top.intkilow.architecture.utils.DataStoreUtil
 import top.intkilow.architecture.utils.LogUtil
+import top.intkilow.architecture.utils.StatusBarUtil
 import top.intkilow.architecture.utils.setOnClickDebounced
 import top.intkilow.feat.constant.*
 import top.intkilow.feat.page.photo.choose.CHOOSE_PHOTO_RESULT_DATA
@@ -32,6 +33,10 @@ class MainPage : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+        StatusBarUtil.setStatusBarColor(activity?.window)
+
         val binding = AppMainBinding.inflate(inflater, container, false)
 
 
