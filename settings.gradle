@@ -1,4 +1,3 @@
-include ':avlib'
 include ':feat'
 include ':architecture'
 include ':app'
