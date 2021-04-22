@@ -10,11 +10,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
-import okhttp3.Callback
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import top.intkilow.architecture.network.ArchitectureApi
 import top.intkilow.architecture.network.NetWorkManager
@@ -126,7 +123,7 @@ class FileTransfer {
             progressCall: (progress: Int) -> Unit = {},
             saveAlbum: Boolean = true,
             filePath: String = File.separator + "download"
-        ) {
+        ): Call {
             val errMsg = "download fail!"
             val successMsg = "download ok!"
 
@@ -192,6 +189,7 @@ class FileTransfer {
                 }
             })
 
+            return call
 
         }
 

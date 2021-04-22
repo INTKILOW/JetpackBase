@@ -2,10 +2,10 @@ package top.intkilow.architecture.utils
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import top.intkilow.architecture.BuildConfig
 
 class LogUtil {
     companion object {
+        var debug = true
         fun <T> v(msg: T, tag: String = "") {
             log(0, msg, message = tag)
         }
@@ -28,7 +28,7 @@ class LogUtil {
 
 
         fun block(call: () -> Unit) {
-            if (!BuildConfig.DEBUG) {
+            if (!debug) {
                 return
             }
             try {
@@ -45,7 +45,7 @@ class LogUtil {
             tag: String = "TAG",
             message: String = ""
         ) {
-            if (!BuildConfig.DEBUG) {
+            if (!debug) {
                 return
             }
             var msg = GsonBuilder()

@@ -1,4 +1,4 @@
-package top.intkilow.jetpackbase
+package top.intkilow.architecture.utils
 
 import android.Manifest
 import android.content.Context
