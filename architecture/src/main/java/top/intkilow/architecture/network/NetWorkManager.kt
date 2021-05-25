@@ -18,6 +18,7 @@ class NetWorkManager {
 
 
     companion object {
+        var debug: Boolean = false
 
         @Volatile
         private var instance: NetWorkManager? = null
@@ -38,7 +39,7 @@ class NetWorkManager {
             .writeTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
             .connectTimeout(1000 * 20.toLong(), TimeUnit.MILLISECONDS)
 
-        if (BuildConfig.DEBUG) {
+        if (debug) {
             val logInterceptor = HttpLoggingInterceptor(HttpLogger())
             logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             builder.addInterceptor(logInterceptor)
